@@ -25,8 +25,98 @@
     <button type="button" id="add-nota">Añadir nota</button>
     <button type="button" id="show-notas">Mostrar notas</button>
 
+    <div id="contenedor-notas">
+
+    </div>
 
 
+    <script>
+
+        /*
+            El programa no debe permitir introducir notas inferiores a cero
+            y mayores que 10
+
+            El programa debe mostrar cuantas notas se han añadido
+            notasAlumnado.length;
+
+            El programa debe mostrar la nota media de la clase
+
+            Evitar que se añada al array un estudiante que ya está en él
+
+        */
+
+
+        //Accedemos a los botones
+        const btnAdd = document.getElementById('add-nota');
+        const btnShow = document.getElementById('show-notas');
+
+        //Array para almacenar la información
+        var notasAlumnado = [];
+
+
+        //Añadimos los datos al array
+        btnAdd.onclick = () => {
+            const student = document.getElementById('alumnos').value;
+            const note = document.getElementById('nota').value;
+
+            //Controlamos que el usuario complete los campos
+            if(student == "" || note == ""){
+                alert("No puedes dejarte campos por completar");
+                return;
+            }
+
+            if(parseInt(note) < 0 || parseInt(note) > 10){
+                alert("El valor debe estar entre 0 y 10");
+                return;
+            }
+
+
+
+
+
+
+            /*  Ejemplo para comprobar si un dato está en el array:
+                const fruits = ["Banana", "Orange", "Apple", "Mango"];
+
+                fruits.includes("Mango"); // is true
+                
+                notasAlumnado.includes(name.student)
+
+            */
+
+            //Introducimos los datos en el array
+            //Creamos el objeto con los datos a introducir
+            const studentObject = {name: student, note: parseFloat(note)}
+
+            notasAlumnado.push(studentObject);
+            console.log(notasAlumnado);
+
+            //Limpiamos los campos
+            document.getElementById('nota').value = "";
+            document.getElementById('alumnos').value="";
+        }
+
+
+        //Evento para generar las notas en la interfaz
+        btnShow.onclick = () => {
+
+            //Bucle para acceder a cada una de las notas
+            //"Por cada estudiante dentro del array notasAlumnado"
+            for(var student of notasAlumnado){
+                //1. Creo una etiqueta <p> para mostrar la información
+                const dato = document.createElement('p');
+                //2. Asigno la información a la etiqueta
+                dato.innerHTML = "Estudiante: " + student.name + " - Nota: " + student.note
+                //3. Añadimos la etiqueta <p> al div con id contenedor-notas
+                document.getElementById('contenedor-notas').append(dato);
+            }
+        }
+
+
+        //
+
+
+    </script>
 
     
 </body>
